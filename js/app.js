@@ -6,17 +6,17 @@
  * Author URL: http://graphberry.com
  * License: http://graphberry.com/pages/license
  */
- jQuery(document).ready(function ($) {
+jQuery(document).ready(function($) {
 
     var lastId,
-    topMenu = $("#top-navigation"),
-    topMenuHeight = topMenu.outerHeight(),
+        topMenu = $("#top-navigation"),
+        topMenuHeight = topMenu.outerHeight(),
         // All list items
         menuItems = topMenu.find("a"),
         // Anchors corresponding to menu items
-        scrollItems = menuItems.map(function () {
+        scrollItems = menuItems.map(function() {
             var href = $(this).attr("href");
-            if(href.indexOf("#") === 0){
+            if (href.indexOf("#") === 0) {
                 var item = $($(this).attr("href"));
                 if (item.length) {
                     return item;
@@ -31,7 +31,7 @@
         "border-left": containerWidth / 2 + 'px outset transparent',
         "border-right": containerWidth / 2 + 'px outset transparent'
     });
-    $(window).resize(function () {
+    $(window).resize(function() {
         containerWidth = $('.container').width();
         $(".triangle").css({
             "border-left": containerWidth / 2 + 'px outset transparent',
@@ -45,7 +45,7 @@
 
     //Initial mixitup, used for animated filtering portgolio.
     $('#portfolio-grid').mixitup({
-        'onMixStart': function (config) {
+        'onMixStart': function(config) {
             $('div.toggleDiv').hide();
         }
     });
@@ -68,7 +68,7 @@
     $('input, textarea').placeholder();
 
     // Bind to scroll
-    $(window).scroll(function () {
+    $(window).scroll(function() {
 
         //Display or hide scroll to top button 
         if ($(this).scrollTop() > 100) {
@@ -87,7 +87,7 @@
         var fromTop = $(this).scrollTop() + topMenuHeight + 10;
 
         // Get id of current scroll item
-        var cur = scrollItems.map(function () {
+        var cur = scrollItems.map(function() {
             if ($(this).offset().top < fromTop)
                 return this;
         });
@@ -100,15 +100,15 @@
             lastId = id;
             // Set/remove active class
             menuItems
-            .parent().removeClass("active")
-            .end().filter("[href=#" + id + "]").parent().addClass("active");
+                .parent().removeClass("active")
+                .end().filter("[href=#" + id + "]").parent().addClass("active");
         }
     });
 
     /*
     Function for scroliing to top
     ************************************/
-    $('.scrollup').click(function () {
+    $('.scrollup').click(function() {
         $("html, body").animate({
             scrollTop: 0
         }, 600);
@@ -116,19 +116,19 @@
     });
 
 
-    $(window).load(function () {
+    $(window).load(function() {
         function filterPath(string) {
             return string.replace(/^\//, '').replace(/(index|default).[a-zA-Z]{3,4}$/, '').replace(/\/$/, '');
         }
-        $('a[href*=#]').each(function () {
+        $('a[href*=#]').each(function() {
             if (filterPath(location.pathname) == filterPath(this.pathname) && location.hostname == this.hostname && this.hash.replace(/#/, '')) {
                 var $targetId = $(this.hash),
-                $targetAnchor = $('[name=' + this.hash.slice(1) + ']');
+                    $targetAnchor = $('[name=' + this.hash.slice(1) + ']');
                 var $target = $targetId.length ? $targetId : $targetAnchor.length ? $targetAnchor : false;
 
                 if ($target) {
 
-                    $(this).click(function () {
+                    $(this).click(function() {
 
                         //Hack collapse top navigation after clicking
                         topMenu.parent().attr('style', 'height:0px').removeClass('in'); //Close navigation
@@ -143,12 +143,12 @@
                 }
             }
         });
-});
+    });
 
     /*
     Sand newsletter
     **********************************************************************/
-    $('#subscribe').click(function () {
+    $('#subscribe').click(function() {
         var error = false;
         var emailCompare = /^([a-z0-9_.-]+)@([0-9a-z.-]+).([a-z.]{2,6})$/; // Syntax to compare against input
         var email = $('input#nlmail').val().toLowerCase(); // get the value of the input field
@@ -157,7 +157,7 @@
             $('#err-subscribe').delay(4000);
             $('#err-subscribe').animate({
                 height: 'toggle'
-            }, 500, function () {
+            }, 500, function() {
                 // Animation complete.
             });
             error = true; // change the error state to true
@@ -171,10 +171,10 @@
                 data: {
                     email: $('#nlmail').val()
                 },
-                error: function (request, error) {
+                error: function(request, error) {
                     alert("An error occurred");
                 },
-                success: function (response) {
+                success: function(response) {
                     if (response == 'OK') {
                         $('#success-subscribe').show();
                         $('#nlmail').val('')
@@ -191,7 +191,7 @@
     /*
 Sand mail
 **********************************************************************/
-$("#send-mail").click(function () {
+    $("#send-mail").click(function() {
 
         var name = $('input#name').val(); // get the value of the input field
         var error = false;
@@ -200,7 +200,7 @@ $("#send-mail").click(function () {
             $('#err-name').delay(4000);
             $('#err-name').animate({
                 height: 'toggle'
-            }, 500, function () {
+            }, 500, function() {
                 // Animation complete.
             });
             error = true; // change the error state to true
@@ -213,7 +213,7 @@ $("#send-mail").click(function () {
             $('#err-email').delay(4000);
             $('#err-email').animate({
                 height: 'toggle'
-            }, 500, function () {
+            }, 500, function() {
                 // Animation complete.
             });
             error = true; // change the error state to true
@@ -226,7 +226,7 @@ $("#send-mail").click(function () {
             $('#err-comment').delay(4000);
             $('#err-comment').animate({
                 height: 'toggle'
-            }, 500, function () {
+            }, 500, function() {
                 // Animation complete.
             });
             error = true; // change the error state to true
@@ -239,10 +239,10 @@ $("#send-mail").click(function () {
                 url: $('#contact-form').attr('action'),
                 data: dataString,
                 timeout: 6000,
-                error: function (request, error) {
+                error: function(request, error) {
 
                 },
-                success: function (response) {
+                success: function(response) {
                     response = $.parseJSON(response);
                     if (response.success) {
                         $('#successSend').show();
@@ -263,7 +263,7 @@ $("#send-mail").click(function () {
 
 
     //Function for show or hide portfolio desctiption.
-    $.fn.showHide = function (options) {
+    $.fn.showHide = function(options) {
         var defaults = {
             speed: 1000,
             easing: '',
@@ -272,11 +272,11 @@ $("#send-mail").click(function () {
             hideText: 'Hide'
         };
         var options = $.extend(defaults, options);
-        $(this).click(function () {
+        $(this).click(function() {
             $('.toggleDiv').slideUp(options.speed, options.easing);
             var toggleClick = $(this);
             var toggleDiv = $(this).attr('rel');
-            $(toggleDiv).slideToggle(options.speed, options.easing, function () {
+            $(toggleDiv).slideToggle(options.speed, options.easing, function() {
                 if (options.changeText == 1) {
                     $(toggleDiv).is(":visible") ? toggleClick.text(options.hideText) : toggleClick.text(options.showText);
                 }
@@ -297,9 +297,9 @@ $("#send-mail").click(function () {
     /************************
     Animate elements
     *************************/
-    
+
     //Animate thumbnails 
-    jQuery('.thumbnail').one('inview', function (event, visible) {
+    jQuery('.thumbnail').one('inview', function(event, visible) {
         if (visible == true) {
             jQuery(this).addClass("animated fadeInDown");
         } else {
@@ -308,25 +308,25 @@ $("#send-mail").click(function () {
     });
 
     //Animate triangles
-    jQuery('.triangle').bind('inview', function (event, visible) {
+    jQuery('.triangle').bind('inview', function(event, visible) {
         if (visible == true) {
             jQuery(this).addClass("animated fadeInDown");
         } else {
             jQuery(this).removeClass("animated fadeInDown");
         }
     });
-    
+
     //animate first team member
-    jQuery('#first-person').bind('inview', function (event, visible) {
+    jQuery('#first-person').bind('inview', function(event, visible) {
         if (visible == true) {
             jQuery('#first-person').addClass("animated pulse");
         } else {
             jQuery('#first-person').removeClass("animated pulse");
         }
     });
-    
+
     //animate sectond team member
-    jQuery('#second-person').bind('inview', function (event, visible) {
+    jQuery('#second-person').bind('inview', function(event, visible) {
         if (visible == true) {
             jQuery('#second-person').addClass("animated pulse");
         } else {
@@ -335,25 +335,25 @@ $("#send-mail").click(function () {
     });
 
     //animate thrid team member
-    jQuery('#third-person').bind('inview', function (event, visible) {
+    jQuery('#third-person').bind('inview', function(event, visible) {
         if (visible == true) {
             jQuery('#third-person').addClass("animated pulse");
         } else {
             jQuery('#third-person').removeClass("animated pulse");
         }
     });
-    
+
     //Animate price columns
-    jQuery('.price-column, .testimonial').bind('inview', function (event, visible) {
+    jQuery('.price-column, .testimonial').bind('inview', function(event, visible) {
         if (visible == true) {
             jQuery(this).addClass("animated fadeInDown");
         } else {
             jQuery(this).removeClass("animated fadeInDown");
         }
     });
-    
+
     //Animate contact form
-    jQuery('.contact-form').bind('inview', function (event, visible) {
+    jQuery('.contact-form').bind('inview', function(event, visible) {
         if (visible == true) {
             jQuery('.contact-form').addClass("animated bounceIn");
         } else {
@@ -362,9 +362,9 @@ $("#send-mail").click(function () {
     });
 
     //Animate skill bars
-    jQuery('.skills > li > span').one('inview', function (event, visible) {
+    jQuery('.skills > li > span').one('inview', function(event, visible) {
         if (visible == true) {
-            jQuery(this).each(function () {
+            jQuery(this).each(function() {
                 jQuery(this).animate({
                     width: jQuery(this).attr('data-width')
                 }, 3000);
@@ -376,9 +376,10 @@ $("#send-mail").click(function () {
 //Initialize google map for contact setion with your location.
 
 function initializeMap() {
-    //-33.437017, -70.634409
-    var lat = '-33.437017'; //Set your latitude.
-    var lon = '-70.634409'; //Set your longitude.
+    //-33.437017, -70.634409 
+    //-33.412957, -70.603757
+    var lat = '-33.412957'; //Set your latitude.
+    var lon = '-70.603757'; //Set your longitude.
 
     var centerLon = lon - 0.0105;
 
@@ -400,10 +401,10 @@ function initializeMap() {
     });
 
     var infowindow = new google.maps.InfoWindow({
-        content: "Your content goes here!"
+        content: "Nuestras oficinas"
     });
 
-    google.maps.event.addListener(marker, 'click', function () {
+    google.maps.event.addListener(marker, 'click', function() {
         infowindow.open(map, marker);
     });
 
